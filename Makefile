@@ -10,10 +10,9 @@ LIBS = -nostdlib -nostartfiles -lSDL -lGL
 
 CFILES = \
 	intro.cc \
-	texture.cc \
 	program.cc
 
-TARGET = demo
+TARGET = intro
 
 .cc.o:
 	$(CXX) $(CXXFLAGS) -c $<
@@ -21,6 +20,9 @@ TARGET = demo
 $(TARGET): $(OBJS)
 	$(LD) $(OBJS) -o $@ $(LIBS)
 	$(STRIP) $(STRIPFLAGS) $(TARGET)
+
+pack: $(TARGET)
+	gzip -c $(TARGET) | cat stub.sh - > packed-intro
 
 depend: .depend
 
