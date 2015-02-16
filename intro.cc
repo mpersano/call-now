@@ -217,10 +217,10 @@ redraw(unsigned now)
 	text_program.set_uniform_f("time", now);
 
 	glBegin(GL_TRIANGLE_STRIP);
-	glVertex2f(-1, -1);
-	glVertex2f(-1, 1);
-	glVertex2f(1, -1);
-	glVertex2f(1, 1);
+	glVertex2f(-.375, -.5);
+	glVertex2f(-.375, .5);
+	glVertex2f(.375, -.5);
+	glVertex2f(.375, .5);
 	glEnd();
 }
 
