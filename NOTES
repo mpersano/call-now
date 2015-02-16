@@ -1,0 +1,5 @@
+to make a video:
+
+  * -DDUMP_FRAMES, -lc
+  * run for a while
+  * ffmpeg -r 30 -i "%05d.ppm" -vf vflip -vcodec mjpeg -qscale 1 -an output.avi

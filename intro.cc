@@ -230,12 +230,38 @@ extern "C" {
 
 void _start()
 {
-	SDL_SetVideoMode(640, 480, 0, SDL_OPENGL);
+	const int width = 640;
+	const int height = 480;
+
+	SDL_SetVideoMode(width, height, 0, SDL_OPENGL);
 
 	init();
 
 	for (;;) {
-		redraw(SDL_GetTicks());
+#ifdef DUMP_FRAMES
+		static unsigned now = 0;
+#else
+		unsigned now = SDL_GetTicks();
+#endif
+		redraw(now);
+
+#ifdef DUMP_FRAMES
+		static char frame_data[width*height*3];
+		glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, frame_data);
+
+		static int frame_num = 0;
+
+		char path[80];
+		sprintf(path, "%05d.ppm", frame_num++);
+
+		if (FILE *out = fopen(path, "wb")) {
+			fprintf(out, "P6\n%d %d\n255\n", width, height);
+			fwrite(frame_data, sizeof(frame_data), 1, out);
+			fclose(out);
+		}
+
+		now += 33;
+#endif
 
 		SDL_GL_SwapBuffers();
 

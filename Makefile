@@ -4,9 +4,9 @@ STRIP = strip
 
 OBJS = $(CFILES:.cc=.o)
 
-CXXFLAGS = -Wall -g -Os -std=c++11 -DRELEASE
+CXXFLAGS = -Wall -g -Os -std=c++11 -DRELEASE # -DDUMP_FRAMES
 STRIPFLAGS = -s -R .comment -R .gnu.version
-LIBS = -nostdlib -nostartfiles -lSDL -lGL
+LIBS = -nostdlib -nostartfiles -lSDL -lGL # -lc
 
 CFILES = \
 	intro.cc \
